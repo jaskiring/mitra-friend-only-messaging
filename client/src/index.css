@@ -1,0 +1,615 @@
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-canvas: #0a0c12;
+  --bg-surface: #11141d;
+  --bg-elevated: #171b26;
+  --bg-hover: #1d2230;
+  --border: #232838;
+  --border-strong: #2e3447;
+  --text-primary: #ecedf2;
+  --text-secondary: #9aa1b1;
+  --text-muted: #6b7286;
+  --accent: #8b6cff;
+  --accent-hover: #a48cff;
+  --accent-soft: rgba(139, 108, 255, 0.16);
+  --danger: #f87171;
+  --danger-soft: rgba(248, 113, 113, 0.14);
+  --success: #4ade80;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.32);
+  --login-glow-a: rgba(139, 108, 255, 0.12);
+  --login-glow-b: rgba(91, 141, 239, 0.10);
+  --avatar-a: linear-gradient(135deg, #8b6cff 0%, #5b8def 100%);
+  --avatar-p: linear-gradient(135deg, #f5759e 0%, #f8a370 100%);
+  --avatar-k: linear-gradient(135deg, #4ade80 0%, #22b8b0 100%);
+  --avatar-d: linear-gradient(135deg, #f59e0b 0%, #f87171 100%);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+  --bg-canvas: #f5f6fa;
+  --bg-surface: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-hover: #eef0f5;
+  --border: #e4e6ec;
+  --border-strong: #d4d7de;
+  --text-primary: #15171c;
+  --text-secondary: #4d5260;
+  --text-muted: #767c8a;
+  --accent: #6c5ce7;
+  --accent-hover: #5b4dd9;
+  --accent-soft: rgba(108, 92, 231, 0.10);
+  --danger: #dc2626;
+  --danger-soft: rgba(220, 38, 38, 0.08);
+  --success: #16a34a;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 12px 32px rgba(15, 23, 42, 0.10);
+  --login-glow-a: rgba(108, 92, 231, 0.10);
+  --login-glow-b: rgba(91, 141, 239, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  background: var(--bg-canvas);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  padding: 0.55rem 0.9rem;
+  border-radius: var(--radius-sm);
+  transition: background 0.12s ease, border-color 0.12s ease, transform 0.06s ease;
+}
+button:hover:not(:disabled) {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+button.primary {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  font-weight: 500;
+}
+button.primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.muted {
+  color: var(--text-muted);
+}
+.small {
+  font-size: 0.82rem;
+}
+.error {
+  color: var(--danger);
+  background: var(--danger-soft);
+  padding: 0.55rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+}
+.success {
+  color: var(--success);
+}
+
+.loading {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: var(--text-muted);
+}
+
+/* ── Login ─────────────────────────────────────────────────────────── */
+
+.login-screen {
+  position: relative;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  background:
+    radial-gradient(circle at 18% 20%, var(--login-glow-a) 0%, transparent 40%),
+    radial-gradient(circle at 82% 80%, var(--login-glow-b) 0%, transparent 40%),
+    var(--bg-canvas);
+}
+.login-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow-md);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+.brand-mark {
+  width: 40px;
+  height: 40px;
+  border-radius: 11px;
+  background: linear-gradient(135deg, var(--accent) 0%, #5b8def 100%);
+  display: grid;
+  place-items: center;
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+.brand-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.brand-tag {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.login-card h1 {
+  margin: 0 0 0.4rem;
+  font-size: 1.25rem;
+}
+.login-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.25rem 0 0;
+  display: grid;
+  gap: 0.4rem;
+}
+.login-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.7rem 0.85rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  text-align: left;
+}
+.login-row:hover:not(:disabled) {
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+.login-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+  flex: 1;
+}
+.login-name {
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.login-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--avatar-a);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+}
+.login-avatar[data-avatar="aarav"] {
+  background: var(--avatar-a);
+}
+.login-avatar[data-avatar="priya"] {
+  background: var(--avatar-p);
+}
+.login-avatar[data-avatar="kabir"] {
+  background: var(--avatar-k);
+}
+.login-avatar[data-avatar="diya"] {
+  background: var(--avatar-d);
+}
+.login-status {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.login-arrow {
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  opacity: 0;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+.login-row:hover .login-arrow {
+  opacity: 1;
+  transform: translateX(2px);
+}
+.login-footnote {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+/* ── App shell ─────────────────────────────────────────────────────── */
+
+.app-shell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  height: 100%;
+  background: var(--bg-canvas);
+}
+.tab-nav {
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.tab-nav-header {
+  margin-bottom: 1rem;
+  padding: 0 0.4rem;
+}
+.tab-nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.85rem;
+}
+.tab-nav-brand-spacer {
+  flex: 1;
+}
+
+/* ── Theme toggle ──────────────────────────────────────────────────── */
+
+.theme-toggle {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+}
+.theme-toggle:hover:not(:disabled) {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+  border-color: var(--border-strong);
+}
+.theme-toggle.floating {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 60;
+  background: var(--bg-surface);
+}
+.tab-nav-brand-mark {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--accent) 0%, #5b8def 100%);
+  display: grid;
+  place-items: center;
+  color: white;
+}
+.tab-nav-brand-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+}
+.tab-nav-me {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0;
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+.tab-nav-me-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--avatar-a);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 0.7rem;
+}
+.tab-nav-me-avatar[data-avatar="aarav"] {
+  background: var(--avatar-a);
+}
+.tab-nav-me-avatar[data-avatar="priya"] {
+  background: var(--avatar-p);
+}
+.tab-nav-me-avatar[data-avatar="kabir"] {
+  background: var(--avatar-k);
+}
+.tab-nav-me-avatar[data-avatar="diya"] {
+  background: var(--avatar-d);
+}
+.tab-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  border: 1px solid transparent;
+  background: transparent;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+.tab-button:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+  border-color: transparent;
+}
+.tab-button.active {
+  background: var(--accent-soft);
+  color: var(--accent-hover);
+  border-color: transparent;
+}
+.tab-badge {
+  background: var(--accent);
+  color: white;
+  font-size: 0.7rem;
+  padding: 0.05rem 0.45rem;
+  border-radius: 999px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+.tab-logout {
+  margin-top: auto;
+  font-size: 0.85rem;
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+}
+.tab-logout:hover:not(:disabled) {
+  color: var(--text-primary);
+}
+
+.app-main {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ── Panels ────────────────────────────────────────────────────────── */
+
+.tab-panel {
+  padding: 1.75rem 2rem;
+  height: 100%;
+  overflow-y: auto;
+}
+.tab-panel header {
+  margin-bottom: 1.25rem;
+}
+.tab-panel header h2 {
+  margin: 0 0 0.2rem;
+  font-size: 1.2rem;
+}
+.tab-panel .empty {
+  padding: 2.5rem 1rem;
+  text-align: center;
+  background: var(--bg-surface);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-md);
+}
+
+/* Users tab — UI Kit takes over its own pane */
+.users-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+/* Hide the online/presence dot in the discover tab */
+.users-panel .cometchat-list-item__status {
+  display: none !important;
+}
+.users-panel header {
+  padding: 1.5rem 2rem 0.5rem;
+}
+.users-list {
+  flex: 1;
+  min-height: 0;
+}
+
+/* Friend Requests */
+.requests-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.request-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.request-info {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+}
+.request-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.request-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Conversations */
+.conversations-panel {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  padding: 0;
+}
+.conversations-list {
+  border-right: 1px solid var(--border);
+  min-height: 0;
+  overflow: hidden;
+}
+.chat-pane {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+.chat-empty {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+}
+
+/* ── Modal ─────────────────────────────────────────────────────────── */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 12, 0.65);
+  backdrop-filter: blur(4px);
+  display: grid;
+  place-items: center;
+  z-index: 50;
+}
+.modal {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 1.75rem;
+  border-radius: var(--radius-lg);
+  width: min(440px, 90vw);
+  box-shadow: var(--shadow-md);
+}
+.modal h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+}
+
+/* ── Friends Tab ───────────────────────────────────────────────────── */
+
+.friends-panel {
+  padding: 1.75rem 2rem;
+}
+.friends-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+.friend-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.12s ease, background 0.12s ease;
+}
+.friend-row:hover {
+  border-color: var(--border-strong);
+  background: var(--bg-hover);
+}
+.friend-info {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+}
+.friend-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.friend-badge {
+  font-size: 0.78rem;
+  color: var(--success);
+  font-weight: 500;
+}
+
+/* ── Modal Status Indicators ──────────────────────────────────────── */
+
+.status-friends,
+.status-pending {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.92rem;
+}
+.status-friends {
+  background: rgba(74, 222, 128, 0.08);
+  color: var(--success);
+  border: 1px solid rgba(74, 222, 128, 0.18);
+}
+.status-pending {
+  background: rgba(245, 158, 11, 0.08);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.18);
+}
+.status-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+

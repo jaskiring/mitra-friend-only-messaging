@@ -1,0 +1,47 @@
+// Friend-only messaging app — backing store for the friend-request lifecycle.
+// CometChat is the source of truth for messaging and accepted friendships;
+// this DB owns the request lifecycle (pending / accepted / rejected) because
+// CometChat's Friends API only stores accepted friendships.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  cometchatUid String   @id
+  name         String
+  avatarUrl    String?
+  createdAt    DateTime @default(now())
+
+  outgoingRequests Friendship[] @relation("Requester")
+  incomingRequests Friendship[] @relation("Recipient")
+}
+
+model Friendship {
+  id            String           @id @default(cuid())
+  requesterUid  String
+  recipientUid  String
+  status        FriendshipStatus
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+
+  requester User @relation("Requester", fields: [requesterUid], references: [cometchatUid])
+  recipient User @relation("Recipient", fields: [recipientUid], references: [cometchatUid])
+
+  // Application code enforces pair-uniqueness by normalizing the pair before
+  // INSERT (SQLite has no functional unique indexes). These indexes serve the
+  // hot lookups: by-pair (moderation gate) and incoming-pending-by-user.
+  @@index([requesterUid, recipientUid])
+  @@index([recipientUid, status])
+}
+
+enum FriendshipStatus {
+  pending
+  accepted
+  rejected
+}

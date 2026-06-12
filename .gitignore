@@ -1,0 +1,39 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# build output
+dist/
+build/
+.next/
+out/
+*.tsbuildinfo
+
+# env
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+logs/
+*.log
+
+# editor / OS / local tooling
+.DS_Store
+.vscode/
+.idea/
+.claude/
+
+# database (SQLite dev file)
+server/prisma/dev.db
+server/prisma/dev.db-journal
+server/prisma/prisma/
+
+# coverage
+coverage/
